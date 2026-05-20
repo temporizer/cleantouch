@@ -18,6 +18,9 @@ export default {
             fontFamily: {
                 sans: ['Inter', ...defaultTheme.fontFamily.sans],
                 heading: ['Plus Jakarta Sans', ...defaultTheme.fontFamily.sans],
+                'zine-display': ['Bebas Neue', 'sans-serif'],
+                'zine-hand': ['Caveat', 'cursive'],
+                'zine-body': ['IBM Plex Mono', 'monospace'],
             },
             colors: {
                 primary: {
@@ -58,6 +61,13 @@ export default {
                     800: '#1e293b',
                     900: '#0f172a',
                     950: '#020617',
+                },
+                zine: {
+                    newsprint: '#f5f0e8',
+                    black: '#111',
+                    green: '#58e283',
+                    yellow: '#ffea00',
+                    gray: 'rgba(17, 17, 17, 0.45)',
                 },
             },
             animation: {

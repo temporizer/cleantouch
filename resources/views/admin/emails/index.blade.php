@@ -5,6 +5,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Phone</th>
                     <th>Subject</th>
                     <th>Date</th>
                     <th>Status</th>
@@ -21,6 +22,7 @@
                         @endif
                     </td>
                     <td class="text-surface-500 dark:text-surface-400">{{ $msg->email }}</td>
+                    <td class="text-surface-500 dark:text-surface-400">{{ $msg->phone ?? '-' }}</td>
                     <td class="text-surface-500 dark:text-surface-400">{{ Str::limit($msg->subject ?? '-', 40) }}</td>
                     <td class="text-surface-400 dark:text-surface-500 whitespace-nowrap">{{ $msg->created_at->format('M j, Y H:i') }}</td>
                     <td>
@@ -57,7 +59,7 @@
                     </td>
                 </tr>
                 @empty
-                <tr><td colspan="6" class="px-6 py-12 text-center text-surface-500 dark:text-surface-400">No messages yet.</td></tr>
+                <tr><td colspan="7" class="px-6 py-12 text-center text-surface-500 dark:text-surface-400">No messages yet.</td></tr>
                 @endforelse
             </tbody>
         </table>

@@ -10,7 +10,7 @@ class ContactMessage extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'email', 'subject', 'message', 'is_read'];
+    protected $fillable = ['name', 'email', 'phone', 'subject', 'message', 'is_read'];
 
     protected $casts = [
         'is_read' => 'boolean',

@@ -1,51 +1,36 @@
 <x-app-layout>
-    <div class="pt-28 pb-20">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <span class="badge badge-primary mb-3">About Me</span>
-                <h1 class="text-4xl md:text-5xl font-heading font-bold text-surface-900 dark:text-white">About</h1>
-                <p class="mt-3 text-surface-500 dark:text-surface-400 max-w-lg mx-auto">A bit about who I am and what I do.</p>
-            </div>
-
-            @if($page && $page->content)
-            <div class="card p-8 md:p-12 mb-10">
-                <div class="prose prose-lg prose-surface dark:prose-invert max-w-none">
-                    {!! $page->content !!}
+    <section class="zine about section-block section-bordered">
+        <div class="zine__inner">
+            <div class="about__spread">
+                <div class="about__col about__col--main">
+                    <h1 class="section__label">/ MANIFESTO</h1>
+                    <h3 class="about__title">More than cleaning.<br>It's <span class="highlight">restoration</span>.</h3>
+                    <p class="about__body">Clean Touch was founded with a simple idea: that a clean home should feel like a sanctuary, not a showroom. We use eco-safe products. We take our time. We believe the small details — the dust-free baseboard, the streak-free mirror, the smell of fresh air — add up to something meaningful.</p>
+                    <p class="about__body" style="margin-top:-1.5rem">Every home has a story, and we're honored to be a part of it. Whether it's a weekly refresh or a seasonal deep clean, our approach is the same: meticulous, respectful, and thorough. We're not happy until you can feel the difference.</p>
+                    <div class="about__tape"></div>
+                    <div class="about__stats">
+                        <div class="about-stat">
+                            <span class="about-stat__num">{{ $stats['years'] ?? '11+' }}</span>
+                            <span class="about-stat__label">years in print</span>
+                        </div>
+                        <div class="about-stat">
+                            <span class="about-stat__num">{{ $stats['homes'] ?? '5000+' }}</span>
+                            <span class="about-stat__label">homes featured</span>
+                        </div>
+                        <div class="about-stat">
+                            <span class="about-stat__num">{{ $stats['eco'] ?? '100%' }}</span>
+                            <span class="about-stat__label">eco-friendly ink</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            @else
-            <div class="text-center py-16">
-                <div class="w-24 h-24 bg-gradient-to-br from-primary-100 dark:from-primary-950 to-accent-100/50 dark:to-accent-950/50 rounded-3xl flex items-center justify-center mx-auto mb-8 animate-float">
-                    <svg class="w-12 h-12 text-primary-500 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                </div>
-                <h3 class="text-2xl font-heading font-semibold text-surface-900 dark:text-white mb-3">Getting to know me</h3>
-                <p class="text-surface-500 dark:text-surface-400 max-w-md mx-auto leading-relaxed">I'm putting together a proper about page. In the meantime, feel free to browse my portfolio or get in touch!</p>
-                <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="{{ route('portfolio.index') }}" class="btn btn-primary">View Portfolio</a>
-                    <a href="{{ route('contact.index') }}" class="btn btn-secondary">Say Hello</a>
-                </div>
-            </div>
-            @endif
-
-            <!-- Stats -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
-                <div class="card p-6 text-center">
-                    <div class="text-3xl font-heading font-bold text-gradient">{{ $stats['portfolio'] ?? 0 }}+</div>
-                    <div class="text-sm text-surface-500 dark:text-surface-400 mt-1">Projects</div>
-                </div>
-                <div class="card p-6 text-center">
-                    <div class="text-3xl font-heading font-bold text-gradient-accent">{{ $stats['categories'] ?? 0 }}</div>
-                    <div class="text-sm text-surface-500 dark:text-surface-400 mt-1">Categories</div>
-                </div>
-                <div class="card p-6 text-center">
-                    <div class="text-3xl font-heading font-bold text-gradient">{{ $stats['years'] ?? '1' }}+</div>
-                    <div class="text-sm text-surface-500 dark:text-surface-400 mt-1">Years Building</div>
-                </div>
-                <div class="card p-6 text-center">
-                    <div class="text-3xl font-heading font-bold text-gradient-accent">{{ $stats['coffee'] ?? '∞' }}</div>
-                    <div class="text-sm text-surface-500 dark:text-surface-400 mt-1">Cups of Coffee</div>
+                <div class="about__col about__col--aside">
+                    <div class="about__side-note">
+                        <p style="font-family:'Caveat',cursive;font-size:20px;line-height:1.4">"We don't just clean spaces — we restore how they feel."</p>
+                        <span style="font-size:12px;opacity:0.5">&mdash; founder's note</span>
+                    </div>
+                    <div class="about__sketch">&amp;</div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </x-app-layout>

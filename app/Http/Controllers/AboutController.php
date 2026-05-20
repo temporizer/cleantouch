@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Page;
-use App\Models\PortfolioItem;
 use App\Models\Setting;
 
 class AboutController extends Controller
@@ -15,15 +12,12 @@ class AboutController extends Controller
             return redirect('/');
         }
 
-        $page = Page::published()->where('slug', 'about')->first();
-
         $stats = [
-            'portfolio' => PortfolioItem::published()->count(),
-            'categories' => Category::count(),
-            'years' => 3,
-            'coffee' => '∞',
+            'years' => '11+',
+            'homes' => '5000+',
+            'eco' => '100%',
         ];
 
-        return view('about', compact('page', 'stats'));
+        return view('about', compact('stats'));
     }
 }

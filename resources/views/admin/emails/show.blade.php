@@ -7,6 +7,10 @@
                     <dd class="text-surface-900 dark:text-white font-medium">{{ $message->name }} <span class="text-surface-400 dark:text-surface-500 font-normal">({{ $message->email }})</span></dd>
                 </div>
                 <div>
+                    <dt class="text-xs font-medium text-surface-400 dark:text-surface-500 uppercase tracking-wider mb-1">Phone</dt>
+                    <dd class="text-surface-700 dark:text-surface-300">{{ $message->phone ?? '-' }}</dd>
+                </div>
+                <div>
                     <dt class="text-xs font-medium text-surface-400 dark:text-surface-500 uppercase tracking-wider mb-1">Date</dt>
                     <dd class="text-surface-700 dark:text-surface-300">{{ $message->created_at->format('F j, Y \a\t g:i A') }}</dd>
                 </div>

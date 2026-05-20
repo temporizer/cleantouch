@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PortfolioItem;
 use App\Models\Setting;
 
 class HomeController extends Controller
@@ -13,8 +12,6 @@ class HomeController extends Controller
             return view('maintenance');
         }
 
-        $portfolio = PortfolioItem::published()->limit(6)->get();
-
-        return view('home', compact('portfolio'));
+        return view('home');
     }
 }

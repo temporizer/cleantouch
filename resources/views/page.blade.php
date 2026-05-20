@@ -1,10 +1,10 @@
 <x-app-layout>
-    <div class="py-12">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">{{ $page->title }}</h1>
+    <div class="zine py-12">
+        <div class="zine__inner">
+            <h1 class="font-zine-display text-3xl md:text-4xl tracking-[2px] text-zine-black mb-6">{{ $page->title }}</h1>
 
             @if($page->content)
-            <div class="prose dark:prose-invert max-w-none">
+            <div class="font-zine-body text-sm text-zine-black/70 leading-relaxed max-w-[700px] space-y-4">
                 {!! $page->content !!}
             </div>
             @endif

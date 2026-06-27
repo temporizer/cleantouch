@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\EmailController;
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\AnalyticsController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
@@ -60,6 +61,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::delete('/emails/{message}', [EmailController::class, 'destroy'])->name('admin.emails.destroy');
     Route::post('/emails/{message}/restore', [EmailController::class, 'restore'])->name('admin.emails.restore');
     Route::delete('/emails/{message}/force-delete', [EmailController::class, 'forceDestroy'])->name('admin.emails.force-destroy');
+
+    Route::get('/analytics', [AnalyticsController::class, 'index'])->name('admin.analytics.index');
 
     Route::get('/settings', [SettingsController::class, 'edit'])->name('admin.settings.edit');
     Route::put('/settings', [SettingsController::class, 'update'])->name('admin.settings.update');

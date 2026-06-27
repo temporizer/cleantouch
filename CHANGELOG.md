@@ -5,7 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.3.0] - 2026-06-26
+## [1.4.0] - 2026-06-26
+
+### Added
+
+- On-site page view analytics with admin panel
+  - `TrackPageView` middleware logs every public GET request (url, hashed ip, user_agent, referer, bot flag)
+  - `page_views` database table with indexes on `visited_at` and `url`
+  - Dedicated Admin → Analytics page with Chart.js 30-day line chart, top pages table, recent visitors
+  - Dashboard "Page Views Today" stat card
+  - Bot detection via User-Agent regex, toggleable in analytics view
+  - IP masking toggle (default: masked)
+
+## [1.3.0] - 2026-06-26 ([f0a5187](https://github.com/anomalyco/cleantouch/commit/f0a5187))
 
 ### Added
 

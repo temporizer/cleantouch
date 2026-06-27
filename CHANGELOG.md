@@ -5,7 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.2.0] - 2026-06-26
+## [1.3.0] - 2026-06-26
+
+### Added
+
+- Google Analytics tracking via admin Settings UI
+  - `resources/views/components/analytics.blade.php` — renders gtag.js when tracking ID is set
+  - Text input in Admin → Settings for G-XXXXXXXXXX tracking ID
+  - Injected into `app.blade.php` and `guest.blade.php` (skipped admin panel)
+
+## [1.2.0] - 2026-06-26 ([5f2f761](https://github.com/anomalyco/cleantouch/commit/5f2f761))
 
 ### Added
 

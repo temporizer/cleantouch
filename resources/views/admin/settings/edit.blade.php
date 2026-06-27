@@ -32,6 +32,16 @@
 
                 <div class="divider"></div>
 
+                <div class="py-4">
+                    <h3 class="font-heading font-semibold text-surface-900 dark:text-white">Google Analytics</h3>
+                    <p class="text-sm text-surface-500 dark:text-surface-400 mt-0.5">Optional — paste your G-XXXXXXXXXX tracking ID to enable site-wide analytics.</p>
+                    <div class="mt-2">
+                        <input type="text" name="google_analytics_id" value="{{ \App\Models\Setting::get('google_analytics_id') }}" placeholder="G-XXXXXXXXXX" class="w-full px-3 py-2 border border-surface-300 dark:border-surface-600 rounded bg-white dark:bg-surface-800 text-surface-900 dark:text-white text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500">
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
                 <div class="flex justify-end">
                     <button type="submit" class="btn btn-primary">Save Settings</button>
                 </div>

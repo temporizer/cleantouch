@@ -18,10 +18,12 @@ class SettingsController extends Controller
         $request->validate([
             'maintenance_mode' => 'boolean',
             'registration_enabled' => 'boolean',
+            'google_analytics_id' => 'nullable|string|max:50',
         ]);
 
         Setting::set('maintenance_mode', $request->boolean('maintenance_mode') ? 'true' : 'false');
         Setting::set('registration_enabled', $request->boolean('registration_enabled') ? 'true' : 'false');
+        Setting::set('google_analytics_id', $request->input('google_analytics_id', ''));
 
         return back()->with('success', 'Settings updated.');
     }

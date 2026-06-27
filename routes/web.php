@@ -41,6 +41,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::put('/portfolio/{portfolioItem}', [AdminPortfolioController::class, 'update'])->name('admin.portfolio.update');
     Route::delete('/portfolio/{portfolioItem}', [AdminPortfolioController::class, 'destroy'])->name('admin.portfolio.destroy');
     Route::post('/portfolio/{portfolioItem}/restore', [AdminPortfolioController::class, 'restore'])->name('admin.portfolio.restore');
+    Route::post('/portfolio/toggle-nav', [AdminPortfolioController::class, 'toggleNav'])->name('admin.portfolio.toggle-nav');
     Route::delete('/portfolio/{portfolioItem}/force-delete', [AdminPortfolioController::class, 'forceDestroy'])->name('admin.portfolio.force-destroy');
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories.index');

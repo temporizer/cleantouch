@@ -9,7 +9,9 @@
 
             <div class="hidden md:flex items-center gap-1">
                 <a href="{{ route('home') }}" class="px-3 py-2 text-sm font-zine-body text-zine-gray hover:text-zine-black transition-colors {{ request()->routeIs('home') ? 'text-zine-black' : '' }}">Home</a>
+                @if(\App\Models\Setting::get('show_portfolio_in_nav') !== 'false')
                 <a href="{{ route('portfolio.index') }}" class="px-3 py-2 text-sm font-zine-body text-zine-gray hover:text-zine-black transition-colors {{ request()->routeIs('portfolio.*') ? 'text-zine-black' : '' }}">Portfolio</a>
+                @endif
                 <a href="{{ route('about') }}" class="px-3 py-2 text-sm font-zine-body text-zine-gray hover:text-zine-black transition-colors {{ request()->routeIs('about') ? 'text-zine-black' : '' }}">About</a>
                 <a href="{{ route('contact.index') }}" class="px-3 py-2 text-sm font-zine-body text-zine-gray hover:text-zine-black transition-colors {{ request()->routeIs('contact.*') ? 'text-zine-black' : '' }}">Contact</a>
                 <a href="{{ route('search') }}" class="px-3 py-2 text-sm font-zine-body text-zine-gray hover:text-zine-black transition-colors {{ request()->routeIs('search') ? 'text-zine-black' : '' }}">
@@ -47,7 +49,9 @@
     <div x-show="open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2" class="relative z-50 md:hidden bg-white border-t border-zine-black/8 shadow-xl">
         <div class="px-4 py-3 space-y-1 max-w-6xl mx-auto">
             <a href="{{ route('home') }}" @click="open = false" class="block px-3 py-2.5 text-sm font-zine-body {{ request()->routeIs('home') ? 'text-zine-black' : 'text-zine-gray hover:text-zine-black' }} transition-colors">Home</a>
+            @if(\App\Models\Setting::get('show_portfolio_in_nav') !== 'false')
             <a href="{{ route('portfolio.index') }}" @click="open = false" class="block px-3 py-2.5 text-sm font-zine-body {{ request()->routeIs('portfolio.*') ? 'text-zine-black' : 'text-zine-gray hover:text-zine-black' }} transition-colors">Portfolio</a>
+            @endif
             <a href="{{ route('about') }}" @click="open = false" class="block px-3 py-2.5 text-sm font-zine-body {{ request()->routeIs('about') ? 'text-zine-black' : 'text-zine-gray hover:text-zine-black' }} transition-colors">About</a>
             <a href="{{ route('contact.index') }}" @click="open = false" class="block px-3 py-2.5 text-sm font-zine-body {{ request()->routeIs('contact.*') ? 'text-zine-black' : 'text-zine-gray hover:text-zine-black' }} transition-colors">Contact</a>
             <hr class="my-2 border-zine-black/8">

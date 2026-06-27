@@ -14,6 +14,10 @@ class PortfolioController extends Controller
             return redirect('/');
         }
 
+        if (Setting::get('show_portfolio_in_nav') === 'false') {
+            return redirect('/');
+        }
+
         $categoryId = request('category');
         $portfolio = PortfolioItem::published()
             ->when($categoryId, fn($q) => $q->where('category_id', $categoryId))
@@ -27,6 +31,10 @@ class PortfolioController extends Controller
     public function show($slug)
     {
         if (Setting::get('maintenance_mode') === 'true') {
+            return redirect('/');
+        }
+
+        if (Setting::get('show_portfolio_in_nav') === 'false') {
             return redirect('/');
         }
 

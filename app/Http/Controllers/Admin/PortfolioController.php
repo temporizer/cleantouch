@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\PortfolioItem;
 use App\Models\Category;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -111,6 +112,13 @@ class PortfolioController extends Controller
         $portfolioItem->restore();
 
         return redirect()->route('admin.portfolio.index')->with('success', 'Portfolio item restored.');
+    }
+
+    public function toggleNav(Request $request)
+    {
+        Setting::set('show_portfolio_in_nav', $request->boolean('show') ? 'true' : 'false');
+
+        return back()->with('success', 'Navigation visibility updated.');
     }
 
     public function forceDestroy(PortfolioItem $portfolioItem)

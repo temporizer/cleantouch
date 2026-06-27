@@ -2,18 +2,14 @@
 
 A Laravel-powered portfolio and business site boilerplate. Built with **Laravel 13**, **Jetstream (Livewire)**, **PostgreSQL**, **Tailwind CSS**, and **Spatie Permissions**.
 
-Clone it, run one script, and start with a fully functional site featuring portfolio management, contact forms, search, an admin panel, and more.
-
 ## Quick Start
 
 ```bash
 git clone <repo-url> my-site
 cd my-site
-./setup.sh
+./deploy.sh
 php artisan serve
 ```
-
-The setup script checks for required dependencies (PHP 8.3+, Composer, Node.js, npm, PostgreSQL client), guides you through any missing installs, and runs the full setup — including database creation and demo data seeding.
 
 ### Default Admin
 
@@ -22,14 +18,25 @@ The setup script checks for required dependencies (PHP 8.3+, Composer, Node.js, 
 | Email    | admin@example.com  |
 | Password | admin              |
 
-**After logging in, create a new admin user via the admin panel and delete this default account.**
+**⚠️ SECURITY: After logging in, create a new admin user via the admin panel and delete this default account before going live!**
 
-## Requirements
+### Deployment Steps
 
-- PHP ^8.3
-- Composer
-- Node.js & npm
-- PostgreSQL 16+
+1. **Upload to cPanel:** Copy your project files to your cPanel web directory
+2. **Run deploy.sh:** It will auto-download composer.phar and create `.env`
+3. **Enter DB credentials:** When prompted, edit `.env` with your PostgreSQL details
+4. **Re-run deploy.sh:** Installs dependencies, runs migrations, builds assets
+5. **Start server:** `php artisan serve`
+
+## Commands
+
+| Command              | Description                        |
+| -------------------- | ---------------------------------- |
+| `php artisan serve`  | Start the dev server               |
+| `npm run dev`        | Watch and compile assets           |
+| `npm run build`      | Build production assets            |
+| `php artisan migrate` | Run database migrations           |
+| `php artisan db:seed` | Seed demo data                   |
 
 ## Architecture
 
@@ -76,16 +83,6 @@ php artisan migrate:fresh --seed
 2. **Content** — Edit or replace the seed portfolio items, pages, and messages to match your own work
 3. **Design** — The Tailwind theme lives in `resources/css/app.css` with custom color tokens, animations, and component classes
 
-## Commands
-
-| Command              | Description                        |
-| -------------------- | ---------------------------------- |
-| `php artisan serve`  | Start the dev server               |
-| `npm run dev`        | Watch and compile assets           |
-| `npm run build`      | Build production assets            |
-| `php artisan migrate` | Run database migrations           |
-| `php artisan db:seed` | Seed demo data                   |
-
 ## API Endpoints
 
 | Method | Endpoint          | Description              |
@@ -97,3 +94,4 @@ php artisan migrate:fresh --seed
 ## License
 
 MIT
+

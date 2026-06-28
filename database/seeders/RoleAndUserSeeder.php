@@ -14,11 +14,14 @@ class RoleAndUserSeeder extends Seeder
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
         Role::firstOrCreate(['name' => 'user']);
 
+        $email = $this->command->ask('Admin email', 'admin@example.com');
+        $password = $this->command->secret('Admin password');
+
         $admin = User::updateOrCreate(
-            ['email' => 'admin@example.com'],
+            ['email' => $email],
             [
                 'name' => 'Admin',
-                'password' => Hash::make('admin'),
+                'password' => Hash::make($password),
             ]
         );
 

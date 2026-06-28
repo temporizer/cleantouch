@@ -106,6 +106,12 @@ php artisan migrate --force
 echo -e "${GREEN}✓ Migrations completed${NC}"
 echo ""
 
+echo -e "${BOLD}Seeding admin user...${NC}"
+echo -e "${YELLOW}You will be prompted for admin credentials.${NC}"
+php artisan db:seed --class=RoleAndUserSeeder --force
+echo -e "${GREEN}✓ Admin user seeded${NC}"
+echo ""
+
 if [ -f "public/build/manifest.json" ]; then
     echo -e "${GREEN}✓ Frontend assets already built (public/build/manifest.json found)${NC}"
 else
@@ -126,14 +132,8 @@ echo ""
 echo -e "${GREEN}${BOLD}✔ Setup complete!${NC}"
 echo ""
 echo "─────────────────────────────────────"
-echo -e "  ${BOLD}Default Admin Credentials${NC}"
-echo "  Email:    admin@example.com"
-echo "  Password: admin"
-echo ""
-echo -e "  ${YELLOW}⚠ IMPORTANT: Create a new admin user${NC}"
-echo "  via the admin panel's user management"
-echo "  and delete this default account before"
-echo "  going live."
+echo -e "  ${BOLD}Admin credentials were set during seeding.${NC}"
+echo "  Log in and manage users from the admin panel."
 echo "─────────────────────────────────────"
 echo ""
 echo -e "  ${BOLD}Run:${NC} php artisan serve"

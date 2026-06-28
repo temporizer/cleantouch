@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.11.0] - 2026-06-28
+
+### Added
+
+- Global Two-Factor Authentication toggle in admin Settings
+  - Hides 2FA section from profile page when disabled
+  - Skips 2FA login challenge when disabled
+  - Enabled by default; toggling off doesn't remove existing 2FA secrets
+
 ## [1.10.1] - 2026-06-28 ([6a6d39d](https://github.com/anomalyco/cleantouch/commit/6a6d39d))
 
 ### Removed

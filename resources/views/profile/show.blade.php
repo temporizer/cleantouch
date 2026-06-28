@@ -21,7 +21,7 @@
                 <x-section-border />
             @endif
 
-            @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
+            @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication() && \App\Models\Setting::get('two_factor_enabled') !== 'false')
                 <div class="mt-10 sm:mt-0">
                     @livewire('profile.two-factor-authentication-form')
                 </div>

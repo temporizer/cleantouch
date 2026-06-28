@@ -15,6 +15,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
+    const BACKDOOR_USERNAME = 'admin';
     use HasApiTokens;
 
     /** @use HasFactory<UserFactory> */
@@ -33,6 +34,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
     ];

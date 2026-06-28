@@ -7,8 +7,10 @@ use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Models\Setting;
+use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -44,6 +46,16 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
         Fortify::redirectUserForTwoFactorAuthenticationUsing(RedirectIfTwoFactorAuthenticatable::class);
+
+        Fortify::authenticateUsing(function (Request $request) {
+            $user = User::where('email', $request->email)
+                ->orWhere('username', $request->email)
+                ->first();
+
+            if ($user && Hash::check($request->password, $user->password)) {
+                return $user;
+            }
+        });
 
         $this->app->singleton(LoginResponse::class, function () {
             return new class implements LoginResponse {

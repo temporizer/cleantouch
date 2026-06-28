@@ -32,6 +32,20 @@
 
                 <div class="divider"></div>
 
+                <div class="flex items-center justify-between py-4">
+                    <div class="pr-4">
+                        <h3 class="font-heading font-semibold text-surface-900 dark:text-white">Login Visible</h3>
+                        <p class="text-sm text-surface-500 dark:text-surface-400 mt-0.5">When disabled, the login link will be hidden from the navigation.</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+                        <input type="hidden" name="login_visible" value="0">
+                        <input type="checkbox" name="login_visible" value="1" {{ \App\Models\Setting::get('login_visible') !== 'false' ? 'checked' : '' }} class="sr-only peer">
+                        <div class="w-11 h-6 bg-surface-200 dark:bg-surface-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-500/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-surface-300 dark:after:border-surface-600 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
+                    </label>
+                </div>
+
+                <div class="divider"></div>
+
                 <div class="py-4">
                     <h3 class="font-heading font-semibold text-surface-900 dark:text-white">Google Analytics</h3>
                     <p class="text-sm text-surface-500 dark:text-surface-400 mt-0.5">Optional — paste your G-XXXXXXXXXX tracking ID to enable site-wide analytics.</p>

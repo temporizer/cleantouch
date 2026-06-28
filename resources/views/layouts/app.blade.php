@@ -29,6 +29,11 @@
         </header>
     @endif
 
+    @php
+        $colophonPage = \App\Models\Page::where('slug', 'home')->first();
+        $colophon = $colophonPage ? (json_decode($colophonPage->content, true) ?: []) : [];
+    @endphp
+
     <main>
         @if(session('success'))
         <div class="fixed top-20 right-4 z-50 max-w-sm">
@@ -49,6 +54,29 @@
         @endif
 
         {{ $slot }}
+
+        <!-- COLOPHON -->
+        <footer class="colophon section-block" data-editable-slug="home">
+            <div class="colophon__inner">
+                <div class="colophon__grid">
+                    <div class="colophon__col">
+                        <h4 data-editable="colophon_site_name">{{ $colophon['colophon_site_name'] ?? 'Clean Touch' }}</h4>
+                        <p data-editable="colophon_issue">{{ $colophon['colophon_issue'] ?? 'Volume 1, Issue 2026' }}</p>
+                    </div>
+                    <div class="colophon__col">
+                        <h4 data-editable="colophon_contact_title">{{ $colophon['colophon_contact_title'] ?? 'Contact' }}</h4>
+                        <p><a href="tel:+13607199650" data-editable="colophon_phone">{{ $colophon['colophon_phone'] ?? '(360) 719-9650' }}</a><br><a href="mailto:info@cleantouchllc.net" data-editable="colophon_email">{{ $colophon['colophon_email'] ?? 'info@cleantouchllc.net' }}</a></p>
+                    </div>
+                    <div class="colophon__col">
+                        <h4 data-editable="colophon_distribution_title">{{ $colophon['colophon_distribution_title'] ?? 'Distribution' }}</h4>
+                        <p data-editable="colophon_locations">{!! $colophon['colophon_locations'] ?? 'Vancouver, WA &middot; Portland, OR &middot; Beaverton, OR &middot; Gresham, OR' !!}</p>
+                    </div>
+                </div>
+                <div class="colophon__bottom">
+                    <p data-editable="colophon_copyright">{!! $colophon['colophon_copyright'] ?? '&copy; ' . date('Y') . ' Clean Touch. Printed on recycled electrons.' !!}</p>
+                </div>
+            </div>
+        </footer>
     </main>
 
     @livewireScripts

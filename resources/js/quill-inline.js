@@ -146,43 +146,58 @@ function showToolbar(el) {
 }
 
 function saveContent() {
-    const slug = document.querySelector('meta[name="page-slug"]')?.getAttribute('content');
-    if (!slug) return;
+    const defaultSlug = document.querySelector('meta[name="page-slug"]')?.getAttribute('content');
+    if (!defaultSlug) return;
 
     saveBtn.textContent = 'Saving...';
     saveBtn.style.opacity = '0.6';
 
-    const data = {};
+    const groups = {};
     document.querySelectorAll('[data-editable]').forEach(el => {
         const key = el.getAttribute('data-editable');
-        if (key) data[key] = el.innerHTML;
+        if (!key) return;
+        const slug = el.closest('[data-editable-slug]')?.getAttribute('data-editable-slug') || defaultSlug;
+        if (!groups[slug]) groups[slug] = {};
+        groups[slug][key] = el.innerHTML;
     });
 
-    fetch(`/admin/page-content/${slug}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
-        },
-        body: JSON.stringify(data),
-    })
-    .then(r => r.json())
-    .then(res => {
-        if (res.success) {
-            showStatus('Saved!', '#059669');
-            saveBtn.style.display = 'none';
-            changed = false;
-        } else {
-            showStatus('Error saving', '#dc2626');
-        }
-        saveBtn.textContent = 'Save Changes';
-        saveBtn.style.opacity = '1';
-    })
-    .catch(() => {
-        showStatus('Error saving', '#dc2626');
-        saveBtn.textContent = 'Save Changes';
-        saveBtn.style.opacity = '1';
+    const slugs = Object.keys(groups);
+    let completed = 0;
+    let hasError = false;
+
+    slugs.forEach(slug => {
+        fetch(`/admin/page-content/${slug}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
+            },
+            body: JSON.stringify(groups[slug]),
+        })
+        .then(r => r.json())
+        .then(res => {
+            completed++;
+            if (!res.success) hasError = true;
+            if (completed === slugs.length) finishSave(hasError);
+        })
+        .catch(() => {
+            completed++;
+            hasError = true;
+            if (completed === slugs.length) finishSave(hasError);
+        });
     });
+}
+
+function finishSave(hasError) {
+    if (hasError) {
+        showStatus('Error saving', '#dc2626');
+    } else {
+        showStatus('Saved!', '#059669');
+        saveBtn.style.display = 'none';
+        changed = false;
+    }
+    saveBtn.textContent = 'Save Changes';
+    saveBtn.style.opacity = '1';
 }
 
 function showStatus(msg, color) {

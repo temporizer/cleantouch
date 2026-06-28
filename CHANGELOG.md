@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.9.0] - 2026-06-27
+## [1.9.1] - 2026-06-28
+
+### Added
+
+- Colophon footer moved to shared layout (appears on all pages, not just home)
+- JS save supports multi-slug via `data-editable-slug` attribute (colophon saves to home page from any page)
+- Prevent default on editable elements inside `<a>` tags so buttons are editable without following links
+
+## [1.9.0] - 2026-06-27 ([aba43d6](https://github.com/anomalyco/cleantouch/commit/aba43d6))
 
 ### Added
 

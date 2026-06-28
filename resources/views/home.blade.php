@@ -137,26 +137,4 @@
         </div>
     </section>
 
-    <!-- COLOPHON -->
-    <footer class="colophon section-block">
-        <div class="colophon__inner">
-            <div class="colophon__grid">
-                <div class="colophon__col">
-                    <h4 data-editable="colophon_site_name">{{ $content['colophon_site_name'] }}</h4>
-                    <p data-editable="colophon_issue">{{ $content['colophon_issue'] }}</p>
-                </div>
-                <div class="colophon__col">
-                    <h4 data-editable="colophon_contact_title">{{ $content['colophon_contact_title'] }}</h4>
-                    <p><a href="tel:+13607199650" data-editable="colophon_phone">{{ $content['colophon_phone'] }}</a><br><a href="mailto:info@cleantouchllc.net" data-editable="colophon_email">{{ $content['colophon_email'] }}</a></p>
-                </div>
-                <div class="colophon__col">
-                    <h4 data-editable="colophon_distribution_title">{{ $content['colophon_distribution_title'] }}</h4>
-                    <p data-editable="colophon_locations">{!! $content['colophon_locations'] !!}</p>
-                </div>
-            </div>
-            <div class="colophon__bottom">
-                <p data-editable="colophon_copyright">{!! $content['colophon_copyright'] !!}</p>
-            </div>
-        </div>
-    </footer>
 </x-app-layout>

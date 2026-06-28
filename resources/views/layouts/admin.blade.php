@@ -107,6 +107,7 @@
                     </div>
                     @endif
                     <span class="text-white/50 text-[11px] hidden sm:block">{{ auth()->user()?->name }}</span>
+                    <a href="{{ route('profile.show') }}" class="admin-bar__btn">Profile</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="admin-bar__btn">Logout</button>

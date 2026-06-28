@@ -25,6 +25,7 @@
                 @if(auth()->user()->hasRole('admin'))
                 <a href="{{ route('admin.dashboard') }}" class="btn-zine text-sm py-1.5 px-4">Admin</a>
                 @endif
+                <a href="{{ route('profile.show') }}" class="text-sm font-zine-body text-zine-gray hover:text-zine-black transition-colors px-2">Profile</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="text-sm font-zine-body text-zine-gray hover:text-zine-black transition-colors px-2">Logout</button>
@@ -63,6 +64,7 @@
                 @if(auth()->user()->hasRole('admin'))
                 <a href="{{ route('admin.dashboard') }}" @click="open = false" class="block px-3 py-2.5 text-sm font-zine-display tracking-wider text-zine-black bg-zine-green/10">Admin</a>
                 @endif
+                <a href="{{ route('profile.show') }}" @click="open = false" class="block px-3 py-2.5 text-sm font-zine-body text-zine-gray hover:text-zine-black transition-colors">Profile</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" @click="open = false" class="block w-full text-left px-3 py-2.5 text-sm font-zine-body text-zine-gray hover:text-zine-black transition-colors">Logout</button>

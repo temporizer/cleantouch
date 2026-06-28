@@ -28,4 +28,4 @@ composer.phar
 php.ini
 .htaccess
 /tmp
-./app.js
+app.js

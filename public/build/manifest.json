@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-Bl-UcL2S.css",
+    "file": "assets/app-CSDA84FK.css",
     "name": "app",
     "names": [
       "app.css"
@@ -12,6 +12,12 @@
     "file": "assets/app-CLKFgbTY.js",
     "name": "app",
     "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/quill-inline.js": {
+    "file": "assets/quill-inline-BnlDsJHz.js",
+    "name": "quill-inline",
+    "src": "resources/js/quill-inline.js",
     "isEntry": true
   }
 }

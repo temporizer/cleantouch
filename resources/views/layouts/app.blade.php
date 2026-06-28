@@ -4,6 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @if(auth()->check() && auth()->user()->hasRole('admin'))
+    <meta name="page-slug" content="{{ request()->route()->getName() === 'about' ? 'about' : 'home' }}">
+    <script>window.__editable = true</script>
+    @endif
 
     <title>{{ $title ?? config('app.name', 'Clean Touch') }}</title>
 
@@ -48,5 +52,14 @@
     </main>
 
     @livewireScripts
+    @auth
+        @if(auth()->user()->hasRole('admin'))
+        <style>
+            [data-editable] { cursor: pointer; }
+            [data-editable]:hover { outline: 2px dashed #10b981; outline-offset: 2px; border-radius: 2px; }
+        </style>
+        @vite(['resources/js/quill-inline.js'])
+        @endif
+    @endauth
 </body>
 </html>

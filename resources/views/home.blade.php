@@ -4,15 +4,15 @@
         <div class="zine__inner">
             <div class="hero__layout">
                 <div class="hero__main">
-                    <div class="hero__stamp">VOL. 1 / 2026</div>
+                    <div class="hero__stamp" data-editable="hero_stamp">{{ $content['hero_stamp'] }}</div>
                     <h1 class="hero__title">
-                        <span class="hero__title-main">CLEAN TOUCH</span>
-                        <span class="hero__title-sub">The Art of Clean</span>
+                        <span class="hero__title-main" data-editable="hero_title_main">{{ $content['hero_title_main'] }}</span>
+                        <span class="hero__title-sub" data-editable="hero_title_sub">{{ $content['hero_title_sub'] }}</span>
                     </h1>
-                    <p class="hero__body">This is not your average cleaning company zine. We're here to talk about dust, dignity, and the domestic revolution happening one spotless corner at a time.</p>
+                    <p class="hero__body rich-editor" data-editable="hero_body">{!! $content['hero_body'] !!}</p>
                     <div class="hero__actions">
-                        <a href="#services" class="btn-zine"><span>Read the feature &rarr;</span></a>
-                        <a href="#contact" class="btn-zine btn-zine--outline"><span>Get a copy</span></a>
+                        <a href="#services" class="btn-zine"><span data-editable="hero_btn_primary">{{ $content['hero_btn_primary'] }}</span></a>
+                        <a href="#contact" class="btn-zine btn-zine--outline"><span data-editable="hero_btn_secondary">{{ $content['hero_btn_secondary'] }}</span></a>
                     </div>
                 </div>
                 <div class="hero__aside">
@@ -20,9 +20,9 @@
                         <div class="polaroid__img">
                             <img src="/img/logo.png" alt="Clean Touch logo" class="polaroid__photo" />
                         </div>
-                        <span class="polaroid__label" style="font-family:'Caveat',cursive;font-size:18px">clean home energy</span>
+                        <span class="polaroid__label" style="font-family:'Caveat',cursive;font-size:18px" data-editable="hero_polaroid_label">{{ $content['hero_polaroid_label'] }}</span>
                     </div>
-                    <div class="hero__sticker">EST. 2017</div>
+                    <div class="hero__sticker" data-editable="hero_sticker">{{ $content['hero_sticker'] }}</div>
                 </div>
             </div>
         </div>
@@ -32,52 +32,20 @@
     <section class="zine services section-block section-bordered" id="services">
         <div class="zine__inner">
             <div class="services__header">
-                <h2 class="section__label">/ WHAT WE DO</h2>
-                <p class="section__sub">Six essential services. Zero compromises.</p>
+                <h2 class="section__label" data-editable="services_header">{{ $content['services_header'] }}</h2>
+                <p class="section__sub" data-editable="services_subtitle">{{ $content['services_subtitle'] }}</p>
             </div>
             <div class="services__grid">
-                <div class="polaroid-card" style="transform:rotate(-1.5deg)">
+                @php $rotations = [-1.5, 2.5, -1, 1.8, -2.2, 0.8]; @endphp
+                @for($i = 1; $i <= 6; $i++)
+                <div class="polaroid-card" style="transform:rotate({{ $rotations[$i-1] }}deg)">
                     <div class="polaroid-card__content">
-                        <h3 class="polaroid-card__title">Dusting &amp; Polishing</h3>
-                        <p class="polaroid-card__desc">Every surface, every shelf, every blind — nothing escapes our rag. Non-toxic polishes that protect your furniture.</p>
+                        <h3 class="polaroid-card__title" data-editable="service_{{ $i }}_title">{!! $content['service_' . $i . '_title'] !!}</h3>
+                        <p class="polaroid-card__desc" data-editable="service_{{ $i }}_desc">{!! $content['service_' . $i . '_desc'] !!}</p>
                     </div>
                     <div class="polaroid-card__stamp">APPROVED</div>
                 </div>
-                <div class="polaroid-card" style="transform:rotate(2.5deg)">
-                    <div class="polaroid-card__content">
-                        <h3 class="polaroid-card__title">Vacuuming &amp; Mopping</h3>
-                        <p class="polaroid-card__desc">Deep cleaning for every floor type. Hardwood, tile, laminate, carpet — we choose the right technique.</p>
-                    </div>
-                    <div class="polaroid-card__stamp">APPROVED</div>
-                </div>
-                <div class="polaroid-card" style="transform:rotate(-1deg)">
-                    <div class="polaroid-card__content">
-                        <h3 class="polaroid-card__title">Bathroom Cleaning</h3>
-                        <p class="polaroid-card__desc">Sinks, showers, toilets, mirrors — sanitized and streak-free. Grout gets special attention.</p>
-                    </div>
-                    <div class="polaroid-card__stamp">APPROVED</div>
-                </div>
-                <div class="polaroid-card" style="transform:rotate(1.8deg)">
-                    <div class="polaroid-card__content">
-                        <h3 class="polaroid-card__title">Kitchen Cleaning</h3>
-                        <p class="polaroid-card__desc">Countertops, appliances, backsplashes — degreased, sanitized, polished. Food-safe and ready.</p>
-                    </div>
-                    <div class="polaroid-card__stamp">APPROVED</div>
-                </div>
-                <div class="polaroid-card" style="transform:rotate(-2.2deg)">
-                    <div class="polaroid-card__content">
-                        <h3 class="polaroid-card__title">Window Cleaning</h3>
-                        <p class="polaroid-card__desc">Interior glass cleaned to a streak-free shine. Sills, tracks, and frames included.</p>
-                    </div>
-                    <div class="polaroid-card__stamp">APPROVED</div>
-                </div>
-                <div class="polaroid-card" style="transform:rotate(0.8deg)">
-                    <div class="polaroid-card__content">
-                        <h3 class="polaroid-card__title">Recurring Maintenance</h3>
-                        <p class="polaroid-card__desc">Weekly, bi-weekly, or monthly. A schedule that fits your rhythm with consistent quality.</p>
-                    </div>
-                    <div class="polaroid-card__stamp">APPROVED</div>
-                </div>
+                @endfor
             </div>
         </div>
     </section>
@@ -87,29 +55,23 @@
         <div class="zine__inner">
             <div class="about__spread">
                 <div class="about__col about__col--main">
-                    <h2 class="section__label">/ MANIFESTO</h2>
-                    <h3 class="about__title">More than cleaning.<br>It's <span class="highlight">restoration</span>.</h3>
-                    <p class="about__body">Clean Touch was founded with a simple idea: that a clean home should feel like a sanctuary, not a showroom. We use eco-safe products. We take our time. We believe the small details — the dust-free baseboard, the streak-free mirror, the smell of fresh air — add up to something meaningful.</p>
+                    <h2 class="section__label" data-editable="manifesto_label">{{ $content['manifesto_label'] }}</h2>
+                    <h3 class="about__title" data-editable="manifesto_title">{!! $content['manifesto_title'] !!}</h3>
+                    <p class="about__body rich-editor" data-editable="manifesto_body">{!! $content['manifesto_body'] !!}</p>
                     <div class="about__tape"></div>
                     <div class="about__stats">
+                        @for($j = 1; $j <= 3; $j++)
                         <div class="about-stat">
-                            <span class="about-stat__num">11+</span>
-                            <span class="about-stat__label">years in print</span>
+                            <span class="about-stat__num" data-editable="manifesto_stat_{{ $j }}_num">{{ $content['manifesto_stat_' . $j . '_num'] }}</span>
+                            <span class="about-stat__label" data-editable="manifesto_stat_{{ $j }}_label">{{ $content['manifesto_stat_' . $j . '_label'] }}</span>
                         </div>
-                        <div class="about-stat">
-                            <span class="about-stat__num">5000+</span>
-                            <span class="about-stat__label">homes featured</span>
-                        </div>
-                        <div class="about-stat">
-                            <span class="about-stat__num">100%</span>
-                            <span class="about-stat__label">eco-friendly ink</span>
-                        </div>
+                        @endfor
                     </div>
                 </div>
                 <div class="about__col about__col--aside">
                     <div class="about__side-note">
-                        <p style="font-family:'Caveat',cursive;font-size:20px;line-height:1.4">"We don't just clean spaces — we restore how they feel."</p>
-                        <span style="font-size:12px;opacity:0.5">&mdash; founder's note</span>
+                        <p style="font-family:'Caveat',cursive;font-size:20px;line-height:1.4" data-editable="manifesto_quote">{!! $content['manifesto_quote'] !!}</p>
+                        <span style="font-size:12px;opacity:0.5" data-editable="manifesto_quote_author">{{ $content['manifesto_quote_author'] }}</span>
                     </div>
                     <div class="about__sketch">&amp;</div>
                 </div>
@@ -121,31 +83,19 @@
     <section class="zine pricing section-block section-bordered" id="pricing">
         <div class="zine__inner">
             <div class="pricing__header">
-                <h2 class="section__label">/ CLASSIFIEDS</h2>
-                <p class="section__sub">Simple pricing. No hidden fees. No fine print.</p>
+                <h2 class="section__label" data-editable="pricing_header">{{ $content['pricing_header'] }}</h2>
+                <p class="section__sub" data-editable="pricing_subtitle">{{ $content['pricing_subtitle'] }}</p>
             </div>
             <div class="pricing__classifieds">
-                <div class="classified">
-                    <div class="classified__tag">FOR SALE</div>
-                    <h3 class="classified__title">Weekly Cleaning</h3>
-                    <p class="classified__price"><span>$150</span> <span>/ visit</span></p>
-                    <p class="classified__desc">Consistent care for homes that like to stay show-ready. One visit every week. Satisfaction guaranteed.</p>
+                @for($p = 1; $p <= 3; $p++)
+                <div class="classified{{ $p === 2 ? ' classified--featured' : '' }}">
+                    <div class="classified__tag" data-editable="pricing_{{ $p }}_tag">{{ $content['pricing_' . $p . '_tag'] }}</div>
+                    <h3 class="classified__title" data-editable="pricing_{{ $p }}_title">{{ $content['pricing_' . $p . '_title'] }}</h3>
+                    <p class="classified__price" data-editable="pricing_{{ $p }}_price">{!! $content['pricing_' . $p . '_price'] !!}</p>
+                    <p class="classified__desc" data-editable="pricing_{{ $p }}_desc">{{ $content['pricing_' . $p . '_desc'] }}</p>
                     <div class="classified__cutline"></div>
                 </div>
-                <div class="classified classified--featured">
-                    <div class="classified__tag">BEST VALUE</div>
-                    <h3 class="classified__title">Bi-Weekly Cleaning</h3>
-                    <p class="classified__price"><span>$120</span> <span>/ visit</span></p>
-                    <p class="classified__desc">A balanced rhythm for homes that need regular attention without overcommitment. Our most popular plan.</p>
-                    <div class="classified__cutline"></div>
-                </div>
-                <div class="classified">
-                    <div class="classified__tag">FOR SALE</div>
-                    <h3 class="classified__title">Deep Clean</h3>
-                    <p class="classified__price"><span>$200</span> <span>/ visit</span></p>
-                    <p class="classified__desc">A thorough reset — ideal for move-ins, move-outs, or seasonal refresh. Top-to-bottom intensive care.</p>
-                    <div class="classified__cutline"></div>
-                </div>
+                @endfor
             </div>
         </div>
     </section>
@@ -154,27 +104,17 @@
     <section class="zine testimonials section-block section-bordered" id="reviews">
         <div class="zine__inner">
             <div class="testimonials__header">
-                <h2 class="section__label">/ LETTERS TO THE EDITOR</h2>
+                <h2 class="section__label" data-editable="testimonials_header">{{ $content['testimonials_header'] }}</h2>
             </div>
             <div class="testimonials__list">
+                @for($t = 1; $t <= 3; $t++)
                 <div class="letter">
                     <div class="letter__quote">&ldquo;</div>
-                    <p class="letter__text">They noticed things I hadn't seen in years — baseboards, corners, the tops of picture frames. The house felt different afterwards. Lighter.</p>
-                    <cite class="letter__author">&mdash; Morgan T., Portland</cite>
+                    <p class="letter__text" data-editable="testimonial_{{ $t }}_text">{{ $content['testimonial_' . $t . '_text'] }}</p>
+                    <cite class="letter__author" data-editable="testimonial_{{ $t }}_author">{{ $content['testimonial_' . $t . '_author'] }}</cite>
                     <div class="letter__tape"></div>
                 </div>
-                <div class="letter">
-                    <div class="letter__quote">&ldquo;</div>
-                    <p class="letter__text">I was skeptical at first, but after the first visit I understood. This isn't a cleaning service — it's a restoration service for your peace of mind.</p>
-                    <cite class="letter__author">&mdash; Priya K., Vancouver</cite>
-                    <div class="letter__tape"></div>
-                </div>
-                <div class="letter">
-                    <div class="letter__quote">&ldquo;</div>
-                    <p class="letter__text">Our bi-weekly visits have become a ritual. The consistency is remarkable — every time, the same meticulous attention.</p>
-                    <cite class="letter__author">&mdash; James R., Bend</cite>
-                    <div class="letter__tape"></div>
-                </div>
+                @endfor
             </div>
         </div>
     </section>
@@ -183,14 +123,14 @@
     <section class="zine cta section-block section-bordered" id="contact">
         <div class="zine__inner">
             <div class="cta__spread">
-                <h2 class="cta__title">Subscribe to <span class="highlight">clean living</span></h2>
-                <p class="cta__body">Reach out for a free quote. No pressure — just a cleaner place to call home.</p>
+                <h2 class="cta__title" data-editable="cta_title">{!! $content['cta_title'] !!}</h2>
+                <p class="cta__body rich-editor" data-editable="cta_body">{!! $content['cta_body'] !!}</p>
                 <div class="cta__actions">
-                    <a href="{{ route('contact.index') }}" class="btn-zine btn-zine--solid"><span>Get a Free Quote</span></a>
+                    <a href="{{ route('contact.index') }}" class="btn-zine btn-zine--solid"><span data-editable="cta_btn">{{ $content['cta_btn'] }}</span></a>
                     <div class="cta__details">
-                        <span>info@cleantouchllc.net</span>
+                        <span data-editable="cta_email">{{ $content['cta_email'] }}</span>
                         <span class="cta__sep">/</span>
-                        <span>Vancouver &amp; Portland</span>
+                        <span data-editable="cta_locations">{!! $content['cta_locations'] !!}</span>
                     </div>
                 </div>
             </div>
@@ -202,20 +142,20 @@
         <div class="colophon__inner">
             <div class="colophon__grid">
                 <div class="colophon__col">
-                    <h4>Clean Touch</h4>
-                    <p>Volume 1, Issue 2026</p>
+                    <h4 data-editable="colophon_site_name">{{ $content['colophon_site_name'] }}</h4>
+                    <p data-editable="colophon_issue">{{ $content['colophon_issue'] }}</p>
                 </div>
                 <div class="colophon__col">
-                    <h4>Contact</h4>
-                    <p><a href="tel:+13607199650">(360) 719-9650</a><br><a href="mailto:info@cleantouchllc.net">info@cleantouchllc.net</a></p>
+                    <h4 data-editable="colophon_contact_title">{{ $content['colophon_contact_title'] }}</h4>
+                    <p><a href="tel:+13607199650" data-editable="colophon_phone">{{ $content['colophon_phone'] }}</a><br><a href="mailto:info@cleantouchllc.net" data-editable="colophon_email">{{ $content['colophon_email'] }}</a></p>
                 </div>
                 <div class="colophon__col">
-                    <h4>Distribution</h4>
-                    <p>Vancouver, WA &middot; Portland, OR &middot; Beaverton, OR &middot; Gresham, OR</p>
+                    <h4 data-editable="colophon_distribution_title">{{ $content['colophon_distribution_title'] }}</h4>
+                    <p data-editable="colophon_locations">{!! $content['colophon_locations'] !!}</p>
                 </div>
             </div>
             <div class="colophon__bottom">
-                <p>&copy; {{ date('Y') }} Clean Touch. Printed on recycled electrons.</p>
+                <p data-editable="colophon_copyright">{!! $content['colophon_copyright'] !!}</p>
             </div>
         </div>
     </footer>

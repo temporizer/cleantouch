@@ -5,11 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.8.1] - 2026-06-27
+## [1.9.0] - 2026-06-27
 
-### Fixed
+### Added
 
-- Replaced stale developer bio in About page seeder with Clean Touch business content
+- Inline content editing for admin users on home and about pages
+  - Native `contenteditable` on all text elements with dashed green outline on hover
+  - Rich text formatting toolbar (Bold/Italic/Link via execCommand) on `.rich-editor` elements
+  - Floating "Save Changes" button persists edits to `pages.content` JSON column
+  - PageContentController handles POST /admin/page-content/{slug}
+  - Non-admin visitors see pages unchanged (no editing JS loaded)
+
+### Changed
+
+- Home and About controllers now read content from DB with flat key defaults
+- Content fields no longer wrapped in `<p>` tags (structure provided by Blade templates)
+- Prices in seeder use `<span>` wrappers matching original CSS selectors
+- Removed Quill editor dependency (4 KB vs 202 KB) in favor of native contenteditable
 
 ## [1.8.0] - 2026-06-27
 

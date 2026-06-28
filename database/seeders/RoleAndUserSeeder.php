@@ -14,6 +14,11 @@ class RoleAndUserSeeder extends Seeder
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
         Role::firstOrCreate(['name' => 'user']);
 
+        if (User::role('admin')->exists()) {
+            $this->command->info('Admin user already exists — skipping seed.');
+            return;
+        }
+
         $email = $this->command->ask('Admin email', 'admin@example.com');
         $password = $this->command->secret('Admin password');
 

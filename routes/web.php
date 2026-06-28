@@ -25,12 +25,6 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 Route::get('/p/{slug}', [PageController::class, 'show'])->name('page.show');
 
-Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
-
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::redirect('/', '/admin/dashboard');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');

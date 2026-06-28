@@ -43,8 +43,7 @@ echo -e "${BOLD}Checking dependencies...${NC}"
 echo ""
 
 check_php_version
-check_dep "Node.js" "node" "Install: apt install nodejs or https://nodejs.org/"
-check_dep "npm" "npm" "Install: apt install npm"
+
 check_dep "PostgreSQL client (psql)" "psql" "Install: apt install postgresql-client"
 
 if [ "$MISSING" -eq 1 ]; then
@@ -107,14 +106,16 @@ php artisan migrate --force
 echo -e "${GREEN}✓ Migrations completed${NC}"
 echo ""
 
-echo -e "${BOLD}Installing frontend dependencies...${NC}"
-npm install --no-audit --no-fund
-echo -e "${GREEN}✓ Frontend dependencies installed${NC}"
-echo ""
-
-echo -e "${BOLD}Building frontend assets...${NC}"
-npm run build
-echo -e "${GREEN}✓ Frontend assets built${NC}"
+if [ -f "public/build/manifest.json" ]; then
+    echo -e "${GREEN}✓ Frontend assets already built (public/build/manifest.json found)${NC}"
+else
+    echo -e "${YELLOW}⚠ public/build/manifest.json not found.${NC}"
+    read -p "Run 'npm install && npm run build' via cPanel, then re-run. Continue? (y/n): " npm_done
+    if [ "$npm_done" != "y" ]; then
+        echo -e "${RED}${BOLD}Run 'npm install && npm run build' via cPanel, then re-run this script.${NC}"
+        exit 0
+    fi
+fi
 echo ""
 
 echo -e "${BOLD}Clearing caches...${NC}"

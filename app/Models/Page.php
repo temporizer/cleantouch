@@ -16,6 +16,11 @@ class Page extends Model
         'is_published' => 'boolean',
     ];
 
+    public function contents()
+    {
+        return $this->hasMany(PageContent::class);
+    }
+
     public function scopePublished($query)
     {
         return $query->where('is_published', true);

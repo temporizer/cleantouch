@@ -85,11 +85,9 @@ class HomeController extends Controller
             'colophon_copyright' => '&copy; ' . date('Y') . ' Clean Touch. Printed on recycled electrons.',
         ];
 
-        if ($page && $page->content) {
-            $decoded = json_decode($page->content, true);
-            if (is_array($decoded)) {
-                $content = array_merge($content, $decoded);
-            }
+        if ($page) {
+            $contents = $page->contents()->pluck('value', 'key')->toArray();
+            $content = array_merge($content, $contents);
         }
 
         return view('home', compact('content'));

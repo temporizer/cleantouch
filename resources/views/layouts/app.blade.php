@@ -30,8 +30,9 @@
     @endif
 
     @php
-        $colophonPage = \App\Models\Page::where('slug', 'home')->first();
-        $colophon = $colophonPage ? (json_decode($colophonPage->content, true) ?: []) : [];
+        $colophon = \App\Models\PageContent::whereHas('page', fn($q) => $q->where('slug', 'home'))
+            ->pluck('value', 'key')
+            ->toArray();
     @endphp
 
     <main>

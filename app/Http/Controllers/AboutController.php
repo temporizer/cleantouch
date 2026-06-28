@@ -30,11 +30,9 @@ class AboutController extends Controller
             'quote_author' => '— founder\'s note',
         ];
 
-        if ($page && $page->content) {
-            $decoded = json_decode($page->content, true);
-            if (is_array($decoded)) {
-                $content = array_merge($content, $decoded);
-            }
+        if ($page) {
+            $contents = $page->contents()->pluck('value', 'key')->toArray();
+            $content = array_merge($content, $contents);
         }
 
         return view('about', compact('content'));

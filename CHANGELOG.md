@@ -5,7 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.9.1] - 2026-06-28
+## [1.10.0] - 2026-06-28
+
+### Added
+
+- Normalized `page_contents` table (`page_id`, `key`, `value` with unique composite index)
+- `PageContent` model with `belongsTo(Page)` relationship
+- Data migration: existing `pages.content` JSON copied to individual `page_contents` rows
+
+### Changed
+
+- Page content reads via `PageContent::pluck('value', 'key')` instead of `json_decode(pages.content)`
+- Save endpoint writes each field as its own row via `updateOrCreate`
+- `pages.content` column kept in sync for search and backward compat
+- Colophon footer reads from `page_contents` in shared layout
+- PageSeeder writes to both `pages.content` and `page_contents`
+
+## [1.9.1] - 2026-06-28 ([06c8a9f](https://github.com/anomalyco/cleantouch/commit/06c8a9f))
 
 ### Added
 

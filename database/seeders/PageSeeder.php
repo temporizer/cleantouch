@@ -9,19 +9,17 @@ class PageSeeder extends Seeder
 {
     public function run(): void
     {
-        Page::create([
+        Page::updateOrCreate(['slug' => 'about'], [
             'title' => 'About',
-            'meta_description' => 'Learn more about Jino Conklin — a web developer, designer, and creative problem solver who crafts playful digital experiences.',
-            'content' => '<h2>Hey there, I\'m Jino</h2>
-<p>I\'m a web developer and designer based somewhere between code and creativity. I\'ve been building things on the internet for over a decade, and I still get excited every time I solve a problem with a well-placed keyframe animation or a thoughtfully structured database query.</p>
-<p>My journey started with curiosity — taking apart HTML pages to see how they worked, then gradually moving up the stack to CSS, JavaScript, PHP, and eventually full-fledged Laravel applications. Along the way I fell in love with the craft of turning complex requirements into simple, beautiful interfaces that people genuinely enjoy using.</p>
-<h3>What I Do</h3>
-<p>I specialize in full-stack Laravel development with modern front-end tooling. My typical stack includes Laravel, Livewire, PostgreSQL, and Tailwind CSS — but I\'m equally comfortable with React Native for mobile, Vue.js for interactive UIs, or a plain HTML/CSS/JS approach when that\'s the right tool.</p>
-<p>Beyond code, I care deeply about design. I believe the best digital experiences are those that <em>feel</em> as good as they work — where every interaction has intention, every transition has purpose, and every pixel has a reason to be where it is.</p>
-<h3>My Approach</h3>
-<p>I work best with people who value quality and aren\'t afraid to iterate. Every project starts with understanding the <strong>why</strong> — what are we really trying to accomplish here? From there, I move through wireframes, prototypes, and code, always keeping the end-user experience at the center of every decision.</p>
-<p>I\'m available for freelance projects, contract work, and select collaborations. If you have something in mind — big or small — I\'d love to hear about it.</p>
-<p class="mt-4"><em>When I\'m not building things, you\'ll probably find me experimenting with generative art, learning a new animation technique, or enjoying a good cup of coffee.</em></p>',
+            'meta_description' => 'Learn more about Clean Touch — eco-friendly professional cleaning services based in Vancouver, WA and Portland, OR.',
+            'content' => '<h3 class="about__title">More than cleaning.<br>It\'s <span class="highlight">restoration</span>.</h3>
+<p class="about__body">Clean Touch was founded with a simple idea: that a clean home should feel like a sanctuary, not a showroom. We use eco-safe products. We take our time. We believe the small details — the dust-free baseboard, the streak-free mirror, the smell of fresh air — add up to something meaningful.</p>
+<p class="about__body">Every home has a story, and we\'re honored to be a part of it. Whether it\'s a weekly refresh or a seasonal deep clean, our approach is the same: meticulous, respectful, and thorough. We\'re not happy until you can feel the difference.</p>
+<p class="about__body">Our team is trained, bonded, and insured. Every cleaner goes through a rigorous onboarding process so you can trust the person walking through your door. We use only eco-friendly, pet-safe products — because a clean home shouldn\'t come at the expense of your family\'s health or the planet.</p>
+<h3>Service Area</h3>
+<p>We proudly serve Vancouver, WA; Portland, OR; Beaverton, OR; and Gresham, OR. Whether you need a one-time deep clean or recurring weekly maintenance, we\'ll work around your schedule.</p>
+<h3>Our Promise</h3>
+<p>If you\'re not thrilled with a single corner of your home, we\'ll make it right. No questions asked. That\'s the Clean Touch guarantee.</p>',
             'is_published' => true,
         ]);
     }

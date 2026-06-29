@@ -2,4 +2,4 @@
 deployment:
   tasks:
     - bash ./deploy.sh
-
+    - rsync -avz --exclude='.cpanel.yml' --exclude='.editorconfig' --exclude='.git' --exclude='.gitignore' /home/temporizer/repositories/cleantouch/ /home/temporizer/cleantouchllc.net/

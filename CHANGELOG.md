@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.11.2] - 2026-06-28
+
+### Fixed
+
+- 500 error on login: `redirectUserForTwoFactorAuthenticationUsing` registers a scoped binding (factory, no args), not a request callback; returns pass-through anonymous class when 2FA is disabled globally
+
 ## [1.11.1] - 2026-06-28 ([d123f52](https://github.com/anomalyco/cleantouch/commit/d123f52))
 
 ### Fixed

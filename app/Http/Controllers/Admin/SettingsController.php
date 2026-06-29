@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\PageView;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 
@@ -30,5 +31,12 @@ class SettingsController extends Controller
         Setting::set('google_analytics_id', $request->input('google_analytics_id', ''));
 
         return back()->with('success', 'Settings updated.');
+    }
+
+    public function resetAnalytics(Request $request)
+    {
+        PageView::truncate();
+
+        return back()->with('success', 'All analytics data has been cleared.');
     }
 }

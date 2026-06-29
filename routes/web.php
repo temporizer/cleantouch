@@ -64,4 +64,5 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/settings', [SettingsController::class, 'edit'])->name('admin.settings.edit');
     Route::put('/settings', [SettingsController::class, 'update'])->name('admin.settings.update');
+    Route::post('/settings/reset-analytics', [SettingsController::class, 'resetAnalytics'])->name('admin.settings.reset-analytics');
 });

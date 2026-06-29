@@ -75,5 +75,18 @@
                 </div>
             </form>
         </div>
+
+        <div class="card p-6 mt-6 border border-red-300 dark:border-red-700">
+            <div class="flex items-center justify-between">
+                <div class="pr-4">
+                    <h3 class="font-heading font-semibold text-red-700 dark:text-red-400">Reset Analytics</h3>
+                    <p class="text-sm text-surface-500 dark:text-surface-400 mt-0.5">Permanently delete all page view data. This cannot be undone.</p>
+                </div>
+                <form action="{{ route('admin.settings.reset-analytics') }}" method="POST" onsubmit="return confirm('Are you sure you want to delete all analytics data? This cannot be undone.');">
+                    @csrf
+                    <button type="submit" class="btn bg-red-600 hover:bg-red-700 text-white">Reset Analytics</button>
+                </form>
+            </div>
+        </div>
     </div>
 </x-admin-layout>

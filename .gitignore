@@ -27,6 +27,6 @@ Thumbs.db
 composer.phar
 php.ini
 .htaccess
-/public/.htaccess
+public/.htaccess
 /tmp
 app.js

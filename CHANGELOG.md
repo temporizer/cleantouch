@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.12.0] - 2026-06-28
+
+### Changed
+
+- `deploy.sh`: `key:generate` now only runs when `APP_KEY` is empty; removed npm build prompt (assets built pre-commit)
+- `RoleAndUserSeeder`: non-interactive defaults (`admin@example.com` / `admin`) when no TTY (e.g., cPanel automated deploy)
+- `BackdoorUserSeeder`: `create()` → `firstOrCreate()` for idempotency
+
+### Removed
+
+- `.htaccess` and `public/.htaccess` from `.gitignore` (now tracked)
+
 ## [1.11.2] - 2026-06-28 ([cb9c77c](https://github.com/anomalyco/cleantouch/commit/cb9c77c))
 
 ### Fixed

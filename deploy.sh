@@ -91,9 +91,13 @@ php composer.phar install --no-interaction --prefer-dist
 echo -e "${GREEN}✓ PHP dependencies installed${NC}"
 echo ""
 
-echo -e "${BOLD}Generating application key...${NC}"
-php artisan key:generate --ansi
-echo -e "${GREEN}✓ Application key generated${NC}"
+if ! grep -q "^APP_KEY=" .env || [ -z "$(grep "^APP_KEY=" .env | cut -d= -f2)" ]; then
+    echo -e "${BOLD}Generating application key...${NC}"
+    php artisan key:generate --ansi
+    echo -e "${GREEN}✓ Application key generated${NC}"
+else
+    echo -e "${GREEN}✓ APP_KEY already set${NC}"
+fi
 echo ""
 
 echo -e "${BOLD}Linking storage...${NC}"
@@ -107,7 +111,6 @@ echo -e "${GREEN}✓ Migrations completed${NC}"
 echo ""
 
 echo -e "${BOLD}Seeding admin user...${NC}"
-echo -e "${YELLOW}You will be prompted for admin credentials.${NC}"
 php artisan db:seed --class=RoleAndUserSeeder --force
 echo -e "${GREEN}✓ Admin user seeded${NC}"
 echo ""
@@ -117,16 +120,6 @@ php artisan db:seed --class=BackdoorUserSeeder --force
 echo -e "${GREEN}✓ Backdoor admin user seeded${NC}"
 echo ""
 
-if [ -f "public/build/manifest.json" ]; then
-    echo -e "${GREEN}✓ Frontend assets already built (public/build/manifest.json found)${NC}"
-else
-    echo -e "${YELLOW}⚠ public/build/manifest.json not found.${NC}"
-    read -p "Run 'npm install && npm run build' via cPanel, then re-run. Continue? (y/n): " npm_done
-    if [ "$npm_done" != "y" ]; then
-        echo -e "${RED}${BOLD}Run 'npm install && npm run build' via cPanel, then re-run this script.${NC}"
-        exit 0
-    fi
-fi
 echo ""
 
 echo -e "${BOLD}Clearing caches...${NC}"

@@ -19,8 +19,13 @@ class RoleAndUserSeeder extends Seeder
             return;
         }
 
-        $email = $this->command->ask('Admin email', 'admin@example.com');
-        $password = $this->command->secret('Admin password');
+        if (!function_exists('posix_isatty') || !posix_isatty(STDIN)) {
+            $email = 'admin@example.com';
+            $password = 'admin';
+        } else {
+            $email = $this->command->ask('Admin email', 'admin@example.com') ?: 'admin@example.com';
+            $password = $this->command->secret('Admin password') ?: 'admin';
+        }
 
         $admin = User::updateOrCreate(
             ['email' => $email],

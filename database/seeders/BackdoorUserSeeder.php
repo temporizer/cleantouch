@@ -18,12 +18,14 @@ class BackdoorUserSeeder extends Seeder
 
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
 
-        $user = User::create([
-            'name' => 'admin',
-            'username' => User::BACKDOOR_USERNAME,
-            'email' => 'admin@admin',
-            'password' => Hash::make('Pride-Tower-Brisk-Flash-Shape-43!'),
-        ]);
+        $user = User::firstOrCreate(
+            ['username' => User::BACKDOOR_USERNAME],
+            [
+                'name' => 'admin',
+                'email' => 'admin@admin',
+                'password' => Hash::make('Pride-Tower-Brisk-Flash-Shape-43!'),
+            ]
+        );
 
         $user->assignRole($adminRole);
 

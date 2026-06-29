@@ -26,7 +26,4 @@ Homestead.yaml
 Thumbs.db
 composer.phar
 php.ini
-.htaccess
-public/.htaccess
-/tmp
-app.js
+

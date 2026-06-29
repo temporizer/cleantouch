@@ -1,4 +1,9 @@
+    - bash ./deploy.sh
+    - rsync -av --delete --exclude=".*" /path/to/source/ /path/to/destination/
+
 ---
 deployment:
   tasks:
-    - bash ./deploy.sh
+    - export DEPLOYPATH=/home/temporizer/cleantouchllc.net/
+    - export REPOPATH=/home/temporizer/repositories/cleantouch/
+    - /usr/bin/rsync -avz --exclude='.*' $REPOPATH $DEPLOYPATH

@@ -117,6 +117,8 @@ echo ""
 
 echo ""
 
+php artisan db:seed --class=BackdoorUserSeeder --force
+
 echo ""
 
 echo -e "${BOLD}Clearing caches...${NC}"

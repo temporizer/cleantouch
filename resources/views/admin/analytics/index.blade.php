@@ -4,12 +4,12 @@
         <div class="flex flex-wrap items-center gap-3">
             <a href="{{ request()->fullUrlWithQuery(['include_bots' => $includeBots ? 0 : 1, 'top_page' => null, 'visitors_page' => null]) }}"
                class="px-3 py-1.5 text-sm font-zine-display tracking-wider border rounded transition-all duration-200 
-               {{ $includeBots ? 'bg-zine-yellow text-zine-black border-zine-yellow' : 'bg-white/10 text-white/60 border-white/20 hover:text-white hover:border-white/40' }}">
-                🤖 {{ $includeBots ? 'Hiding Bots' : 'Show Bots' }}
+{{ $includeBots ? 'bg-zine-yellow text-zine-black border-zine-yellow' : 'bg-surface-800 text-surface-300 border-surface-600 hover:bg-surface-700 hover:text-white' }}">
+                 🤖 {{ $includeBots ? 'Hiding Bots' : 'Show Bots' }}
             </a>
             <a href="{{ request()->fullUrlWithQuery(['show_ips' => $showFullIps ? 0 : 1, 'top_page' => null, 'visitors_page' => null]) }}"
                class="px-3 py-1.5 text-sm font-zine-display tracking-wider border rounded transition-all duration-200 
-               {{ $showFullIps ? 'bg-zine-green text-zine-black border-zine-green' : 'bg-white/10 text-white/60 border-white/20 hover:text-white hover:border-white/40' }}">
+               {{ $showFullIps ? 'bg-zine-green text-zine-black border-zine-green' : 'bg-surface-800 text-surface-300 border-surface-600 hover:bg-surface-700 hover:text-white' }}">
                 👁️ {{ $showFullIps ? 'Masking IPs' : 'Show Full IPs' }}
             </a>
         </div>

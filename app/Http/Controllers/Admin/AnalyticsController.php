@@ -74,6 +74,7 @@ class AnalyticsController extends Controller
             $recentVisitors = $recentVisitorsQuery->paginate(50, ['*'], 'visitors_page')
                 ->withQueryString()
                 ->through(function ($view) {
+                    $view->original_ip = $view->ip;
                     $view->ip = PageView::maskIp($view->ip);
                     return $view;
                 });

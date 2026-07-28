@@ -173,7 +173,7 @@
                         <td class="px-6 py-4 text-right">
                             <form method="POST" action="{{ route('admin.analytics.hide-ip') }}" class="inline">
                                 @csrf
-                                <input type="hidden" name="ip" value="{{ $visitor->ip }}">
+                                <input type="hidden" name="ip" value="{{ $visitor->original_ip ?? $visitor->ip }}">
                                 <button type="submit" class="text-xs text-surface-400 hover:text-red-400 transition-colors" title="Hide this IP">hide</button>
                             </form>
                         </td>

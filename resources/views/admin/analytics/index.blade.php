@@ -73,6 +73,27 @@
             </div>
         </div>
 
+        <!-- Hidden IPs -->
+        @if(!empty($hiddenIps))
+        <div class="card p-4">
+            <div class="flex items-center justify-between">
+                <h3 class="font-heading font-semibold text-surface-900 dark:text-white text-sm">Hidden IPs</h3>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-2">
+                @foreach($hiddenIps as $ip)
+                <div class="flex items-center gap-1 px-2 py-1 text-xs bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-300 rounded border border-surface-200 dark:border-surface-700">
+                    <span class="font-mono">{{ $ip }}</span>
+                    <form method="POST" action="{{ route('admin.analytics.unhide-ip') }}" class="inline">
+                        @csrf
+                        <input type="hidden" name="ip" value="{{ $ip }}">
+                        <button type="submit" class="text-surface-400 hover:text-red-400 ml-1 leading-none">&times;</button>
+                    </form>
+                </div>
+                @endforeach
+            </div>
+        </div>
+        @endif
+
         <!-- Chart -->
         <div class="card p-6">
             <h3 class="font-heading font-semibold text-surface-900 dark:text-white mb-4">Daily Views (30 Days)</h3>
@@ -133,6 +154,7 @@
                         <th class="px-6 py-3 text-left text-xs font-medium text-surface-500 dark:text-surface-400 uppercase tracking-wider">IP</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-surface-500 dark:text-surface-400 uppercase tracking-wider">Bot</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-surface-500 dark:text-surface-400 uppercase tracking-wider">Visited</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-surface-500 dark:text-surface-400 uppercase tracking-wider"></th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-surface-200 dark:divide-surface-700">
@@ -148,10 +170,17 @@
                             @endif
                         </td>
                         <td class="px-6 py-4 text-sm text-surface-400">{{ $visitor->visited_at->diffForHumans() }}</td>
+                        <td class="px-6 py-4 text-right">
+                            <form method="POST" action="{{ route('admin.analytics.hide-ip') }}" class="inline">
+                                @csrf
+                                <input type="hidden" name="ip" value="{{ $visitor->ip }}">
+                                <button type="submit" class="text-xs text-surface-400 hover:text-red-400 transition-colors" title="Hide this IP">hide</button>
+                            </form>
+                        </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="4" class="px-6 py-8 text-center text-sm text-surface-400">No visitors recorded yet.</td>
+                        <td colspan="5" class="px-6 py-8 text-center text-sm text-surface-400">No visitors recorded yet.</td>
                     </tr>
                     @endforelse
                 </tbody>

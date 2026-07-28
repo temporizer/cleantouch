@@ -59,6 +59,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::delete('/emails/{message}/force-delete', [EmailController::class, 'forceDestroy'])->name('admin.emails.force-destroy');
 
     Route::get('/analytics', [AnalyticsController::class, 'index'])->name('admin.analytics.index');
+    Route::post('/analytics/hide-ip', [AnalyticsController::class, 'hideIp'])->name('admin.analytics.hide-ip');
+    Route::post('/analytics/unhide-ip', [AnalyticsController::class, 'unhideIp'])->name('admin.analytics.unhide-ip');
 
     Route::post('/page-content/{slug}', [PageContentController::class, 'save'])->name('admin.page-content.save');
 

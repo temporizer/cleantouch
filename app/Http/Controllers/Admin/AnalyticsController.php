@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\PageView;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class AnalyticsController extends Controller
@@ -15,8 +16,10 @@ class AnalyticsController extends Controller
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         $urlQuery = $request->input('url_query');
+        $hiddenIps = json_decode(Setting::get('hidden_ips', '[]'), true) ?? [];
 
-        $baseQuery = PageView::where('ip', 'not like', '127.0%')
+        $baseQuery = PageView::whereNotIn('ip', $hiddenIps)
+            ->where('ip', 'not like', '127.0%')
             ->when(!$includeBots, fn($q) => $q->humans());
 
         if ($startDate) {
@@ -79,7 +82,37 @@ class AnalyticsController extends Controller
         return view('admin.analytics.index', compact(
             'stats', 'topPages', 'dates', 'counts',
             'includeBots', 'showFullIps', 'recentVisitors',
-            'startDate', 'endDate', 'urlQuery'
+            'startDate', 'endDate', 'urlQuery', 'hiddenIps'
         ));
+    }
+
+    public function hideIp(Request $request)
+    {
+        $ip = $request->input('ip');
+        if (!$ip) {
+            return back();
+        }
+
+        $hiddenIps = json_decode(Setting::get('hidden_ips', '[]'), true) ?? [];
+        if (!in_array($ip, $hiddenIps)) {
+            $hiddenIps[] = $ip;
+            Setting::set('hidden_ips', json_encode($hiddenIps));
+        }
+
+        return back();
+    }
+
+    public function unhideIp(Request $request)
+    {
+        $ip = $request->input('ip');
+        if (!$ip) {
+            return back();
+        }
+
+        $hiddenIps = json_decode(Setting::get('hidden_ips', '[]'), true) ?? [];
+        $hiddenIps = array_values(array_filter($hiddenIps, fn($h) => $h !== $ip));
+        Setting::set('hidden_ips', json_encode($hiddenIps));
+
+        return back();
     }
 }

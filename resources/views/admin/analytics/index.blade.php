@@ -18,36 +18,36 @@
             <div>
                 <label class="block text-xs text-surface-400 mb-1">From</label>
                 <input type="date" name="start_date" value="{{ $startDate }}"
-                       class="px-3 py-1.5 text-sm border rounded bg-white/10 text-white border-white/20">
+                       class="px-3 py-1.5 text-sm border rounded bg-surface-800 text-surface-200 border-surface-600">
             </div>
             <div>
                 <label class="block text-xs text-surface-400 mb-1">To</label>
                 <input type="date" name="end_date" value="{{ $endDate }}"
-                       class="px-3 py-1.5 text-sm border rounded bg-white/10 text-white border-white/20">
+                       class="px-3 py-1.5 text-sm border rounded bg-surface-800 text-surface-200 border-surface-600">
             </div>
             <div>
                 <label class="block text-xs text-surface-400 mb-1">URL</label>
                 <input type="text" name="url_query" value="{{ $urlQuery }}" placeholder="Filter by URL..."
-                       class="px-3 py-1.5 text-sm border rounded bg-white/10 text-white border-white/20 w-48">
+                       class="px-3 py-1.5 text-sm border rounded bg-surface-800 text-surface-200 border-surface-600 w-48">
             </div>
             <div class="flex items-center gap-2">
                 <button type="submit" class="px-3 py-1.5 text-sm font-zine-display tracking-wider border rounded bg-zine-green text-zine-black border-zine-green transition-all duration-200">
                     Filter
                 </button>
                 <a href="{{ route('admin.analytics.index') }}"
-                   class="px-3 py-1.5 text-sm font-zine-display tracking-wider border rounded bg-white/10 text-white/60 border-white/20 hover:text-white hover:border-white/40 transition-all duration-200">
+                   class="px-3 py-1.5 text-sm font-zine-display tracking-wider border rounded bg-surface-800 text-surface-300 border-surface-600 hover:bg-surface-700 hover:text-white transition-all duration-200">
                     Clear
                 </a>
                 <a href="{{ request()->fullUrlWithQuery(['start_date' => now()->startOfDay()->format('Y-m-d'), 'end_date' => now()->format('Y-m-d'), 'top_page' => null, 'visitors_page' => null]) }}"
-                   class="px-3 py-1.5 text-sm font-zine-display tracking-wider border rounded bg-white/10 text-white/60 border-white/20 hover:text-white hover:border-white/40 transition-all duration-200">
+                   class="px-3 py-1.5 text-sm font-zine-display tracking-wider border rounded bg-surface-800 text-surface-300 border-surface-600 hover:bg-surface-700 hover:text-white transition-all duration-200">
                     Today
                 </a>
                 <a href="{{ request()->fullUrlWithQuery(['start_date' => now()->startOfWeek()->format('Y-m-d'), 'end_date' => now()->format('Y-m-d'), 'top_page' => null, 'visitors_page' => null]) }}"
-                   class="px-3 py-1.5 text-sm font-zine-display tracking-wider border rounded bg-white/10 text-white/60 border-white/20 hover:text-white hover:border-white/40 transition-all duration-200">
+                   class="px-3 py-1.5 text-sm font-zine-display tracking-wider border rounded bg-surface-800 text-surface-300 border-surface-600 hover:bg-surface-700 hover:text-white transition-all duration-200">
                     This Week
                 </a>
                 <a href="{{ request()->fullUrlWithQuery(['start_date' => now()->startOfMonth()->format('Y-m-d'), 'end_date' => now()->format('Y-m-d'), 'top_page' => null, 'visitors_page' => null]) }}"
-                   class="px-3 py-1.5 text-sm font-zine-display tracking-wider border rounded bg-white/10 text-white/60 border-white/20 hover:text-white hover:border-white/40 transition-all duration-200">
+                   class="px-3 py-1.5 text-sm font-zine-display tracking-wider border rounded bg-surface-800 text-surface-300 border-surface-600 hover:bg-surface-700 hover:text-white transition-all duration-200">
                     This Month
                 </a>
             </div>

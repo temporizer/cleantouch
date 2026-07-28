@@ -1,20 +1,57 @@
 <x-admin-layout title="Analytics">
     <div class="space-y-6">
         <!-- Filters -->
-        <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <a href="{{ request()->fullUrlWithQuery(['include_bots' => $includeBots ? 0 : 1]) }}"
-                   class="px-3 py-1.5 text-sm font-zine-display tracking-wider border rounded transition-all duration-200 
-                   {{ $includeBots ? 'bg-zine-yellow text-zine-black border-zine-yellow' : 'bg-white/10 text-white/60 border-white/20 hover:text-white hover:border-white/40' }}">
-                    🤖 {{ $includeBots ? 'Hiding Bots' : 'Show Bots' }}
+        <div class="flex flex-wrap items-center gap-3">
+            <a href="{{ request()->fullUrlWithQuery(['include_bots' => $includeBots ? 0 : 1, 'top_page' => null, 'visitors_page' => null]) }}"
+               class="px-3 py-1.5 text-sm font-zine-display tracking-wider border rounded transition-all duration-200 
+               {{ $includeBots ? 'bg-zine-yellow text-zine-black border-zine-yellow' : 'bg-white/10 text-white/60 border-white/20 hover:text-white hover:border-white/40' }}">
+                🤖 {{ $includeBots ? 'Hiding Bots' : 'Show Bots' }}
+            </a>
+            <a href="{{ request()->fullUrlWithQuery(['show_ips' => $showFullIps ? 0 : 1, 'top_page' => null, 'visitors_page' => null]) }}"
+               class="px-3 py-1.5 text-sm font-zine-display tracking-wider border rounded transition-all duration-200 
+               {{ $showFullIps ? 'bg-zine-green text-zine-black border-zine-green' : 'bg-white/10 text-white/60 border-white/20 hover:text-white hover:border-white/40' }}">
+                👁️ {{ $showFullIps ? 'Masking IPs' : 'Show Full IPs' }}
+            </a>
+        </div>
+
+        <form method="GET" action="{{ route('admin.analytics.index') }}" class="flex flex-wrap items-end gap-3">
+            <div>
+                <label class="block text-xs text-surface-400 mb-1">From</label>
+                <input type="date" name="start_date" value="{{ $startDate }}"
+                       class="px-3 py-1.5 text-sm border rounded bg-white/10 text-white border-white/20">
+            </div>
+            <div>
+                <label class="block text-xs text-surface-400 mb-1">To</label>
+                <input type="date" name="end_date" value="{{ $endDate }}"
+                       class="px-3 py-1.5 text-sm border rounded bg-white/10 text-white border-white/20">
+            </div>
+            <div>
+                <label class="block text-xs text-surface-400 mb-1">URL</label>
+                <input type="text" name="url_query" value="{{ $urlQuery }}" placeholder="Filter by URL..."
+                       class="px-3 py-1.5 text-sm border rounded bg-white/10 text-white border-white/20 w-48">
+            </div>
+            <div class="flex items-center gap-2">
+                <button type="submit" class="px-3 py-1.5 text-sm font-zine-display tracking-wider border rounded bg-zine-green text-zine-black border-zine-green transition-all duration-200">
+                    Filter
+                </button>
+                <a href="{{ route('admin.analytics.index') }}"
+                   class="px-3 py-1.5 text-sm font-zine-display tracking-wider border rounded bg-white/10 text-white/60 border-white/20 hover:text-white hover:border-white/40 transition-all duration-200">
+                    Clear
                 </a>
-                <a href="{{ request()->fullUrlWithQuery(['show_ips' => $showFullIps ? 0 : 1]) }}"
-                   class="px-3 py-1.5 text-sm font-zine-display tracking-wider border rounded transition-all duration-200 
-                   {{ $showFullIps ? 'bg-zine-green text-zine-black border-zine-green' : 'bg-white/10 text-white/60 border-white/20 hover:text-white hover:border-white/40' }}">
-                    👁️ {{ $showFullIps ? 'Masking IPs' : 'Show Full IPs' }}
+                <a href="{{ request()->fullUrlWithQuery(['start_date' => now()->startOfDay()->format('Y-m-d'), 'end_date' => now()->format('Y-m-d'), 'top_page' => null, 'visitors_page' => null]) }}"
+                   class="px-3 py-1.5 text-sm font-zine-display tracking-wider border rounded bg-white/10 text-white/60 border-white/20 hover:text-white hover:border-white/40 transition-all duration-200">
+                    Today
+                </a>
+                <a href="{{ request()->fullUrlWithQuery(['start_date' => now()->startOfWeek()->format('Y-m-d'), 'end_date' => now()->format('Y-m-d'), 'top_page' => null, 'visitors_page' => null]) }}"
+                   class="px-3 py-1.5 text-sm font-zine-display tracking-wider border rounded bg-white/10 text-white/60 border-white/20 hover:text-white hover:border-white/40 transition-all duration-200">
+                    This Week
+                </a>
+                <a href="{{ request()->fullUrlWithQuery(['start_date' => now()->startOfMonth()->format('Y-m-d'), 'end_date' => now()->format('Y-m-d'), 'top_page' => null, 'visitors_page' => null]) }}"
+                   class="px-3 py-1.5 text-sm font-zine-display tracking-wider border rounded bg-white/10 text-white/60 border-white/20 hover:text-white hover:border-white/40 transition-all duration-200">
+                    This Month
                 </a>
             </div>
-        </div>
+        </form>
 
         <!-- Stats Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -77,6 +114,11 @@
                     @endforelse
                 </tbody>
             </table>
+            @if($topPages->hasPages())
+            <div class="px-6 py-3 border-t border-surface-200 dark:border-surface-700">
+                {{ $topPages->links() }}
+            </div>
+            @endif
         </div>
 
         <!-- Recent Visitors -->
@@ -114,6 +156,11 @@
                     @endforelse
                 </tbody>
             </table>
+            @if($recentVisitors->hasPages())
+            <div class="px-6 py-3 border-t border-surface-200 dark:border-surface-700">
+                {{ $recentVisitors->links() }}
+            </div>
+            @endif
         </div>
     </div>
 

@@ -12,8 +12,23 @@ class AnalyticsController extends Controller
     {
         $includeBots = $request->boolean('include_bots');
         $showFullIps = $request->boolean('show_ips');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $urlQuery = $request->input('url_query');
 
         $baseQuery = PageView::when(!$includeBots, fn($q) => $q->humans());
+
+        if ($startDate) {
+            $baseQuery->where('visited_at', '>=', $startDate);
+        }
+
+        if ($endDate) {
+            $baseQuery->where('visited_at', '<=', $endDate . ' 23:59:59');
+        }
+
+        if ($urlQuery) {
+            $baseQuery->where('url', 'like', '%' . $urlQuery . '%');
+        }
 
         $stats = [
             'total' => (clone $baseQuery)->count(),
@@ -26,8 +41,8 @@ class AnalyticsController extends Controller
             ->selectRaw('url, count(*) as visits')
             ->groupBy('url')
             ->orderByDesc('visits')
-            ->limit(10)
-            ->get();
+            ->paginate(25, ['*'], 'top_page')
+            ->withQueryString();
 
         $dailyViews = (clone $baseQuery)
             ->selectRaw("date(visited_at) as date, count(*) as count")
@@ -46,17 +61,15 @@ class AnalyticsController extends Controller
             $counts->push($dailyViews->get($date, 0));
         }
 
+        $recentVisitorsQuery = (clone $baseQuery)->orderByDesc('visited_at');
+
         if ($showFullIps) {
-            $recentVisitors = (clone $baseQuery)
-                ->orderByDesc('visited_at')
-                ->limit(20)
-                ->get();
+            $recentVisitors = $recentVisitorsQuery->paginate(50, ['*'], 'visitors_page')
+                ->withQueryString();
         } else {
-            $recentVisitors = (clone $baseQuery)
-                ->orderByDesc('visited_at')
-                ->limit(20)
-                ->get()
-                ->map(function ($view) {
+            $recentVisitors = $recentVisitorsQuery->paginate(50, ['*'], 'visitors_page')
+                ->withQueryString()
+                ->through(function ($view) {
                     $view->ip = PageView::maskIp($view->ip);
                     return $view;
                 });
@@ -64,7 +77,8 @@ class AnalyticsController extends Controller
 
         return view('admin.analytics.index', compact(
             'stats', 'topPages', 'dates', 'counts',
-            'includeBots', 'showFullIps', 'recentVisitors'
+            'includeBots', 'showFullIps', 'recentVisitors',
+            'startDate', 'endDate', 'urlQuery'
         ));
     }
 }

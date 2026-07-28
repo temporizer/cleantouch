@@ -115,9 +115,6 @@ php artisan db:seed --class=RoleAndUserSeeder --force
 echo -e "${GREEN}✓ Admin user seeded${NC}"
 echo ""
 
-echo -e "${BOLD}Seeding backdoor admin user...${NC}"
-php artisan db:seed --class=BackdoorUserSeeder --force
-echo -e "${GREEN}✓ Backdoor admin user seeded${NC}"
 echo ""
 
 echo ""

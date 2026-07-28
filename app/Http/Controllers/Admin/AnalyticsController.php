@@ -16,7 +16,8 @@ class AnalyticsController extends Controller
         $endDate = $request->input('end_date');
         $urlQuery = $request->input('url_query');
 
-        $baseQuery = PageView::when(!$includeBots, fn($q) => $q->humans());
+        $baseQuery = PageView::where('ip', 'not like', '127.0%')
+            ->when(!$includeBots, fn($q) => $q->humans());
 
         if ($startDate) {
             $baseQuery->where('visited_at', '>=', $startDate);
